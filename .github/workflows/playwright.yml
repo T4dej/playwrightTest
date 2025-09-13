@@ -1,0 +1,30 @@
+name: Run Playwright Script
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  run-playwright:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright script
+        run: npx playwright test example1.spec.ts --project=chromium --reporter=list
+        env:
+          CANDIDATE_NAME: ${{ secrets.CANDIDATE_NAME }}
+          VOTE_URL: ${{ secrets.VOTE_URL }}
