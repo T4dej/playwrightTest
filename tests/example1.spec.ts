@@ -59,7 +59,7 @@ async function doVote(page) {
   const thirdTimeout = randomTimeout();
   await page.waitForTimeout(thirdTimeout);
 
-  await page.click('//a[contains(text(),"Vote")]');
+  await page.click('(//a[contains(text(),"Glasuj")])[2]');
 
   await expect(
     page.locator('//span[contains(text(),"Ste že glasovali")]')
