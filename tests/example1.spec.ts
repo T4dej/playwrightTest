@@ -13,7 +13,7 @@ if (!CANDIDATE_NAME || !VOTE_URL) {
 
 test.describe.configure({ mode: "serial" });
 
-async function getDiff(page) {
+async function getDiff(page: any) {
   const items = page.locator('//div[contains(@id,"appointment-2")]//ul/li');
   const count = await items.count();
 
@@ -41,7 +41,7 @@ async function getDiff(page) {
   return { X, Y, diff: Y - X };
 }
 
-async function doVote(page) {
+async function doVote(page: any) {
   await page.goto(VOTE_URL);
 
   const firstTimeout = randomTimeout();
@@ -59,7 +59,7 @@ async function doVote(page) {
   const thirdTimeout = randomTimeout();
   await page.waitForTimeout(thirdTimeout);
 
-  await page.click('(//a[contains(text(),"Glasuj")])[2]');
+  await page.click('//a[contains(text(),"Vote")]');
 
   await expect(
     page.locator('//span[contains(text(),"Ste že glasovali")]')
